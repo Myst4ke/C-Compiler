@@ -1,0 +1,2 @@
+int a = geti();
+puti(a);

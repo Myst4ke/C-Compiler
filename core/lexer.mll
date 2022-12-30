@@ -11,18 +11,36 @@ let ident = alpha ( alpha | num | '_')*
 
 rule token = parse
 | eof             { Lend }
+| '('             { Lopar }
+| ')'             { Lcpar }
+| '{'             { Lobracket }
+| '}'             { Lcbracket }
 | [ ' ' '\t' ]    { token lexbuf }
 | '\n'            { Lexing.new_line lexbuf; token lexbuf }
 | num+ as n       { Lint (int_of_string n) }
-| "true"          { Ltrue (true)}
+| ','             { Lcomma }
+| "true"          { Ltrue (true)  }
 | "false"         { Lfalse (false)}
-| ';'             { Lsc }
-| '='             { Leq }
-(* | "var"           { Lvar } *)
 | "int"           { Ltypeint }
 | "bool"          { Ltypebool }
-(* | '*'          { Lstar } *)
-(* | '+'             { Ladd } *)
+| "string"        { Ltypestr }
+(* | "void"          { Ltypevoid } *)
+| ';'             { Lsc }
+| '='             { Leq }
+| "=="            { Ldeq }
+| "!="            { Lneq }
+| ">"             { Lsupp }
+| ">="            { Lsuppeq }
+| "<"             { Linf }
+| "<="            { Linfeq }
+| '*'             { Lstar }
+| '+'             { Ladd }
+| '/'             { Ldiv }
+| '-'             { Lsub }
+| "||"            { Lor }  
+| "&&"            { Land }  
+| "if"            { Lif }
+| "else"          { Lelse }
 | "return"        { Lreturn }
 | ident as id     { Lident (id)}
 | _ as c          { raise (Error c) }

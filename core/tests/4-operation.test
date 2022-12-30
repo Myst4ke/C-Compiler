@@ -1,0 +1,11 @@
+int a = 2+2;
+puti(a);
+
+int b = 2*3;
+puti(b);
+
+int c = 2/2;
+puti(c);
+
+int d = 2-2;
+puti(d);

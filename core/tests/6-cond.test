@@ -1,0 +1,21 @@
+int a = 10;
+int b = 0;
+if(a > 0){
+    b = 1;
+    puti(b);
+};
+
+if(a >= 10){
+    b = 2;
+    puti(b);
+};
+
+if(a < 10){
+    b = 3;
+    puti(b);
+};
+
+if(a <= 10){
+    b = 4;
+    puti(b);
+};

@@ -26,7 +26,17 @@ type instr =
   | Move  of reg * reg
   | Addi  of reg * reg * int
   | Add   of reg * reg * reg
+  | Sub   of reg * reg * reg
   | Mul   of reg * reg * reg
+  | Div   of reg * reg * reg
+  | Seq   of reg * reg * reg
+  | Sne   of reg * reg * reg
+  | Sgt   of reg * reg * reg
+  | Sge   of reg * reg * reg 
+  | Slt   of reg * reg * reg
+  | Sle   of reg * reg * reg
+  | Or    of reg * reg * reg
+  | And   of reg * reg * reg
   | Syscall
   | B     of label
   | Beqz  of reg * label
@@ -76,7 +86,17 @@ let fmt_instr = function
   | Move (rd, rs)    -> ps "  move %s, %s" (fmt_reg rd) (fmt_reg rs)
   | Addi (rd, rs, i) -> ps "  addi %s, %s, %d" (fmt_reg rd) (fmt_reg rs) i
   | Add (rd, rs, rt) -> ps "  add %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Sub (rd, rs, rt) -> ps "  sub %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
   | Mul (rd, rs, rt) -> ps "  mul %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Div (rd, rs, rt) -> ps "  div %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Seq (rd, rs, rt) -> ps "  seq %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Sne (rd, rs, rt) -> ps "  sne %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Sgt (rd, rs, rt) -> ps "  sgt %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Sge (rd, rs, rt) -> ps "  sge %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Slt (rd, rs, rt) -> ps "  slt %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Sle (rd, rs, rt) -> ps "  sle %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Or  (rd, rs, rt) -> ps "  or %s, %s, %s"  (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | And (rd, rs, rt) -> ps "  and %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
   | Syscall          -> ps "  syscall"
   | B (l)            -> ps "  b %s" l
   | Beqz (r, l)      -> ps "  beqz %s, %s" (fmt_reg r) l
@@ -93,8 +113,8 @@ let print_asm oc asm =
   List.iter (fun (l, d) -> Printf.fprintf oc "%s: %s\n" l (fmt_dir d)) asm.data
   
 let emit oc asm =
-  Printf.fprintf oc ".text\n.globl main\nmain:\n" ;
+  Printf.fprintf oc ".text\n.globl main\n" ;
   List.iter (fun i -> Printf.fprintf oc "%s\n" (fmt_instr i)) asm.text ;
-  Printf.fprintf oc "  move $a0, $v0\n  li $v0, 1\n  syscall\n  jr $ra\n" ;
+  Printf.fprintf oc "  move $a0, $v0\n  li $v0, 1\n  syscall\n  addi $fp, $sp, -4\n jr $ra\n" ;
   Printf.fprintf oc "\n.data\n" ;
   List.iter (fun (l, d) -> Printf.fprintf oc "%s: %s\n" l (fmt_dir d)) asm.data

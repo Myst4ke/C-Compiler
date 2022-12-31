@@ -71,7 +71,6 @@ while(x<10){
 ```
 
 #### Les optimisations : 
-**Quelques optimisations sont effectuées :**
 
 **Optimisation des types des arguments.** Chaque fonction de la baselib possède une liste de type correspondant au type d'arguments qui peuvent être passés à l'appel de la fonction. 
 
@@ -81,3 +80,5 @@ Les fonctions d'erreur liste maintenant la liste des types possibles.
 
 **Optimisation des strings multiples.** Le `Simplifier.ml` permet d'éviter la présence de chaine de caractère multiples.
 
+#### Les erreurs : 
+La fonction `gets()` ne fonctionne pas -_- .

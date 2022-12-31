@@ -106,7 +106,7 @@ let fmt_instr = function
   | Jr (r)           -> ps "  jr %s" (fmt_reg r)
 
 let fmt_dir = function
-  | Asciiz (s) -> ps ".asciiz \"%s\"" s
+  | Asciiz (s) -> ps ".asciiz %s" s
 
 let print_asm oc asm =
   Printf.fprintf oc ".text\n.globl main\n" ;

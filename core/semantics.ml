@@ -1,5 +1,5 @@
 open Ast
-open Ast.IR
+open Ast.IR1
 open Baselib
 
 exception ErrorType of string
@@ -30,9 +30,9 @@ let errt expected given pos =
                 pos))
 let analyze_value value =
   match value with
-  | Syntax.Bool b -> Bool b.value, Bool_t
-  | Syntax.Int n  -> Int n.value, Int_t
-  | Syntax.String s  -> String s.value, String_t
+  | Syntax.Bool   b -> V1.Bool b.value, Bool_t
+  | Syntax.Int    n -> V1.Int n.value, Int_t
+  | Syntax.String s -> V1.String s.value, String_t
 
 let rec analyze_expr env expr =
   match expr with 

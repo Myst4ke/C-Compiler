@@ -1,0 +1,4 @@
+string a = "Bonjour";
+puts(a);
+string b = gets();
+puts(b);

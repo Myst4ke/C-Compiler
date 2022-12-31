@@ -7,6 +7,7 @@
 
 let num = ['0'-'9']
 let alpha = ['a' - 'z' 'A' - 'Z']
+let string  = '"'( alpha | num | '_' | ' ' | '\n' )+'"'
 let ident = alpha ( alpha | num | '_')*
 
 rule token = parse
@@ -24,7 +25,6 @@ rule token = parse
 | "int"           { Ltypeint }
 | "bool"          { Ltypebool }
 | "string"        { Ltypestr }
-(* | "void"          { Ltypevoid } *)
 | ';'             { Lsc }
 | '='             { Leq }
 | "=="            { Ldeq }
@@ -37,11 +37,10 @@ rule token = parse
 | '+'             { Ladd }
 | '/'             { Ldiv }
 | '-'             { Lsub }
-| "||"            { Lor }  
-| "&&"            { Land }  
 | "if"            { Lif }
 | "else"          { Lelse }
 | "while"         { Lwhile }
 | "return"        { Lreturn }
+| string as s     { Lstring(s) }               
 | ident as id     { Lident (id)}
 | _ as c          { raise (Error c) }

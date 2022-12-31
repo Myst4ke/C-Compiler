@@ -20,6 +20,8 @@ let _types_ = (* Env.empty *)
        ; "_and", (Func_t (Bool_t, [ [Bool_t] ; [Bool_t] ]), true)
        ; "puti", (Func_t (Void_t, [[Int_t] ]), true)
        ; "geti", (Func_t (Int_t, []), true)
+       ; "puts", (Func_t (Void_t, [[String_t] ]), true)
+       ; "gets", (Func_t (String_t, []), true)
     ])
 
 let builtins = [ 

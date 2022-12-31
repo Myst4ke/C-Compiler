@@ -7,13 +7,14 @@
 %token <bool> Ltrue
 %token <bool> Lfalse
 %token <string> Lident
-%token Lopar Lcpar Lobracket Lcbracket
+%token <string> Lstring
+%token Lopar Lcpar Lobracket Lcbracket 
 %token Ladd Lsub Lstar Ldiv 
 %token Lif Lelse Lwhile
 %token Lreturn Ltypeint Ltypebool Ltypestr Ltypevoid
 %token Lcomma Lsc Lend
 %token Lneq Leq Ldeq Lsupp Lsuppeq Linf Linfeq
-%token Land Lor
+/* %token Land Lor */
 
 
 %left Ladd Lsub
@@ -170,18 +171,6 @@ expr:
           ; pos = $startpos($2)
           }
   }
-/* | a = expr; Leq; Lor; b = expr 
-  { Call { func = "_or"
-          ; args = [a ; b]
-          ; pos = $startpos($2)
-          }
-  }
-| a = expr; Leq; Land; b = expr 
-  { Call { func = "_and"
-          ; args = [a ; b]
-          ; pos = $startpos($2)
-          }
-  } */
 
 /* Call */
 |name = Lident; Lopar; args = separated_list(Lcomma, expr) ; Lcpar 
@@ -197,9 +186,8 @@ expr:
 
 
 value : 
-| n = Lint {
-  Int { value = n ; pos = $startpos(n) }
-}
+| n = Lint {Int { value = n ; pos = $startpos(n) }}
 | b = Ltrue  { Bool { value = b ; pos = $startpos(b)} }
 | b = Lfalse { Bool { value = b ; pos = $startpos(b)} }
+| s = Lstring { String { value = s; pos = $startpos(s)} }
 ;

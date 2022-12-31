@@ -1,4 +1,5 @@
-open Ast.IR
+open Ast.IR2
+open Ast
 open Mips
 
 module Env = Map.Make(String)
@@ -11,9 +12,9 @@ type cinfo = { asm: Mips.instr list
              }
 let compile_value v env = 
   match v with
-  | Int  n -> [Li (V0, n)]
-  | Bool b -> [Li (V0, if b then 1 else 0)] 
-  | String l -> [ La (V0, Lbl l) ]
+  | V2.Int  n -> [Li (V0, n)]
+  | V2.Bool b -> [Li (V0, if b then 1 else 0)] 
+  | V2.Data l -> [ La (V0, Lbl l) ]
 
 let rec compile_expr e env =
   match e with
@@ -90,9 +91,9 @@ and compile_block block info =
   | [] -> info
 
 
-let compile ir =
+let compile (ir, data) =
   let counter = 0 in
-  let info = compile_block ir 
+  let info = compile_block ir
       {
         asm = []
       ; env = Env.empty
@@ -118,7 +119,7 @@ let compile ir =
      ; Jr (RA)
     ]
       
-  ; data = [] }
+  ; data = List.map (fun (l, s) -> (l, Asciiz s)) data }
 
 
  (*  let compile (code, data) =

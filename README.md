@@ -71,7 +71,13 @@ while(x<10){
 ```
 
 #### Les optimisations : 
-##### Quelques optimisations sont effectuées :
-* **Optimisation des types des arguments :** Chaque fonction de la baselib possède une liste de type correspondant au type d'arguments qui peuvent être passés à l'appel de la fonction. Ces types étants uniques un opérateur tel que **==** ne pouvait marcher que sur un seul type (soit int, soit bool). L'optimisation consiste à prendre non pas **des types uniques** pour chaque argument mais **une liste de types** pouvant être acceptés par la fonction. L'opérateur **==** marche donc pour les int et les bool en même temps. Les fonctions d'erreur liste maintenant la liste des types possibles.
-* **Optimisation des strings multiples :** Le `Simplifier.ml` permet d'éviter la présence de chaine de caractère multiples.
+**Quelques optimisations sont effectuées :**
+
+**Optimisation des types des arguments.** Chaque fonction de la baselib possède une liste de type correspondant au type d'arguments qui peuvent être passés à l'appel de la fonction. 
+
+Ces types étants uniques un opérateur tel que **==** ne pouvait marcher que sur un seul type (soit int, soit bool). L'optimisation consiste à prendre non pas **des types uniques** pour chaque argument mais **une liste de types** pouvant être acceptés par la fonction. L'opérateur **==** marche donc pour les int et les bool en même temps. 
+
+Les fonctions d'erreur liste maintenant la liste des types possibles.
+
+**Optimisation des strings multiples.** Le `Simplifier.ml` permet d'éviter la présence de chaine de caractère multiples.
 

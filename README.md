@@ -21,8 +21,57 @@ Ce projet est un compilateur C écrit en `OCaml`. Il est séparé en plusieur pa
 Le langage compilé est basé sur le **C** avec quelques différences.
 #### Les types :
 Contrairement au **C** seuls trois types sont disponibles :
-| Name    | Exemple  |      Opérateurs    |
-|:----------:|:----------:|:-------------:|
-| Int     | `int a = 1312;` |   | 
-| Bool    | `bool b = true;` |   |
-| String  | `string s = "Bonjour";` |   |
+| Nom     | Exemple                |    Opérateurs    |
+|:-------:|:----------------------:|:----------------:|
+| Int     | `int i = 1312`         | **tous**         | 
+| Bool    | `bool b = true`        | **==** et **!=** |
+| String  | `string s = "Bonjour"` | **aucun**        |
+
+#### Les opérateurs :
+Liste des opérateurs disponibles :
+
+| Nom     | Exemple          |      Types    |
+|:-------:|:----------------:|:-------------------:|
+| **==**  | `13 == 12`       | **int** et **bool** | 
+| **!=**  | `false != true`  | **int** et **bool** |
+| **>**   | `13 > 12`        | **int**             |
+| **>=**  | `13 >= 12`       | **int**             |
+| **<**   | `13 < 12`        | **int**             |
+| **<=**  | `13 <= 12`       | **int**             |
+| *       | `13 * 12`        | **int**             |
+| **+**   | `13 + 12`        | **int**             |
+| **/**   | `13 / 12`        | **int**             |
+| **-**   | `13 - 12`        | **int**             |
+
+#### Les Conditions/Boucles : 
+Les conditions et les boucles s'écrivent comme en **C** à la différence qu'il est nécessaire de les terminer par un **`;`**
+
+##### Exemple : 
+**If**
+```c
+if(true == false){
+  puti(13);
+}else{
+ puti(12);
+};
+```
+ou 
+```c
+if(true == false){
+  puti(13);
+};
+puti(12);
+```
+**While**
+```c
+int x = 0;
+while(x<10){
+  x = x + 1;
+};
+```
+
+#### Les optimisations : 
+##### Quelques optimisations sont effectuées :
+* **Optimisation des types des arguments :** Chaque fonction de la baselib possède une liste de type correspondant au type d'arguments qui peuvent être passés à l'appel de la fonction. Ces types étants uniques un opérateur tel que **==** ne pouvait marcher que sur un seul type (soit int, soit bool). L'optimisation consiste à prendre non pas **des types uniques** pour chaque argument mais **une liste de types** pouvant être acceptés par la fonction. L'opérateur **==** marche donc pour les int et les bool en même temps. Les fonctions d'erreur liste maintenant la liste des types possibles.
+* **Optimisation des strings multiples :** Le `Simplifier.ml` permet d'éviter la présence de chaine de caractère multiples.
+

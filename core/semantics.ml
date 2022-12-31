@@ -89,6 +89,11 @@ and verif_types types args env =
       |ex, Bool_t -> Cond (ex, (analyze_block c.blockt env), (analyze_block c.blocke env)), env
       |_ -> raise (Error ("'if' statements expects boolean conditions", c.pos))
     end
+    | Syntax.While w -> begin
+      match analyze_expr env w.expr with
+      |ex, Bool_t -> While (ex, (analyze_block w.block env)), env
+      |_ -> raise (Error ("'if' statements expects boolean conditions", w.pos))
+    end
 and analyze_block block env =
   match block with
   | i :: b -> 

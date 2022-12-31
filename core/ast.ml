@@ -37,6 +37,9 @@ module Syntax = struct
                 ; blockt: block
                 ; blocke: block
                 ; pos: Lexing.position }
+    | While of { expr: expr 
+                ; block: block
+                ; pos: Lexing.position }
     and
   block = instr list
 end
@@ -70,7 +73,7 @@ module IR = struct
     | Return of expr
     | Expr of expr
     | Cond of expr * block * block
-    
+    | While of expr * block
 and
   block = instr list
 end 

@@ -41,6 +41,7 @@ rule token = parse
 | "&&"            { Land }  
 | "if"            { Lif }
 | "else"          { Lelse }
+| "while"         { Lwhile }
 | "return"        { Lreturn }
 | ident as id     { Lident (id)}
 | _ as c          { raise (Error c) }

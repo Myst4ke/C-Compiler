@@ -69,6 +69,19 @@ let rec compile_instr instr info =
               @ ce.asm
               @ [ Label ("endif" ^ uniq) ]
      ; counter = ce.counter }
+  | While (e, b) ->
+    let uniq = string_of_int info.counter in
+     let ct = compile_block b { info with asm = []
+                                        ; counter = info.counter + 1 } in
+     { info with
+       asm = info.asm
+              @ [Label ("while" ^ uniq)]
+              @ compile_expr e info.env
+              @ [ Beqz (V0, "endwhile" ^ uniq) ]
+              @ ct.asm
+              @ [B ("while" ^ uniq)]
+              @ [ Label ("endwhile" ^ uniq) ]
+     ; counter = ct.counter }
 
 and compile_block block info = 
   match block with

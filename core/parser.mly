@@ -9,7 +9,7 @@
 %token <string> Lident
 %token Lopar Lcpar Lobracket Lcbracket
 %token Ladd Lsub Lstar Ldiv 
-%token Lif Lelse
+%token Lif Lelse Lwhile
 %token Lreturn Ltypeint Ltypebool Ltypestr Ltypevoid
 %token Lcomma Lsc Lend
 %token Lneq Leq Ldeq Lsupp Lsuppeq Linf Linfeq
@@ -99,7 +99,11 @@ instr:
   {
     [Cond {expr = e; blockt = bthen; blocke = belse; pos = $startpos($1)}]
   }
-  
+  /* Loop */
+  |Lwhile; Lopar; e = expr; Lcpar; Lobracket; b = block; Lcbracket;
+  {
+    [While {expr = e; block = b; pos = $startpos($1)} ]
+  }
 ;
 
 expr:

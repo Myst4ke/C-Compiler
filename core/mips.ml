@@ -40,6 +40,7 @@ type instr =
   | Syscall
   | B     of label
   | Beqz  of reg * label
+  | Bne   of reg * reg * label
   | Jal   of label
   | Jr    of reg
 
@@ -97,6 +98,7 @@ let fmt_instr = function
   | Sle (rd, rs, rt) -> ps "  sle %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
   | Or  (rd, rs, rt) -> ps "  or %s, %s, %s"  (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
   | And (rd, rs, rt) -> ps "  and %s, %s, %s" (fmt_reg rd) (fmt_reg rs) (fmt_reg rt)
+  | Bne (rd, rs, l)  -> ps "  bne %s, %s, %s" (fmt_reg rd) (fmt_reg rs) l
   | Syscall          -> ps "  syscall"
   | B (l)            -> ps "  b %s" l
   | Beqz (r, l)      -> ps "  beqz %s, %s" (fmt_reg r) l

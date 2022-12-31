@@ -109,7 +109,7 @@ let builtins = [
   ; Syscall
   ; Jr RA
 
-  (* ; Label "puts"
+  ; Label "puts"
   ; Lw (A0, Mem (SP, 0))
   ; Li (V0, Syscall.print_str)
   ; Syscall
@@ -119,9 +119,9 @@ let builtins = [
   ; Lw (A0, Mem (SP, 0))
   ; Li (V0, Syscall.read_str)
   ; Syscall
-  ; Jr RA *)
+  ; Jr RA
 
-  (* ; Label "alloc"
+  (*  ; Label "alloc"
   ; Lw (A0, Mem (SP, 0))
   ; Li (V0, Syscall.sbrk)
   ; Syscall
